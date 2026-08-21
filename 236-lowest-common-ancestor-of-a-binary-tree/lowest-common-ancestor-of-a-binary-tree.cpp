@@ -10,38 +10,13 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        unordered_map<TreeNode*, TreeNode*>m;
-        queue<pair<TreeNode* , TreeNode* >>qu;
-        qu.push({root,NULL});
+        if(!root || root==p || root==q) return root;
 
-        while(!qu.empty()){
-            TreeNode* temp= qu.front().first;
-            TreeNode* par= qu.front().second;
-            qu.pop();
+        TreeNode* left=lowestCommonAncestor(root->left,p,q);
+        TreeNode* right= lowestCommonAncestor(root->right, p,q);
 
-            m[temp]=par;
+        if(left && right) return root;
 
-            if(temp->left) qu.push({temp->left, temp});
-            if(temp->right) qu.push({temp->right, temp});
-        }
-
-        unordered_map<TreeNode*,int>n;
-        TreeNode* val=p;
-
-        while(val!=NULL){
-            n[val]=1;
-            TreeNode* s= m[val];
-            val=s;
-        }
-
-        val=q;
-        while(val!=NULL){
-            if(n.count(val)) return val;
-
-            n[val]=1;
-            TreeNode* s=m[val];
-            val=s;
-        }
-        return NULL;
+        return left ? left : right;
     }
 };
