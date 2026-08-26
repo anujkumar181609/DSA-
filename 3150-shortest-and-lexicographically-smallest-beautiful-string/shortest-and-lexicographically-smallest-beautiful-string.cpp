@@ -1,17 +1,24 @@
 class Solution {
 public:
     string shortestBeautifulSubstring(string s, int k) {
-        string temp;
-        int start=0,end=0,n=s.size(),count=0;
-        vector<pair<int,string>>ans;
+        
+        int start=0,end=0,len=INT_MAX,count=0;
+        string ans="";
 
-        while(end<n){
+        while(end<s.size()){
             if(s[end]=='1') count++;
-            temp+=s[end];
 
             while(start<=end && count==k){
                 int size= end-start+1;
-                ans.push_back({size,temp});
+                string temp= s.substr(start,size);
+
+                if(len > size){
+                    len=size;
+                    ans=temp;
+                }
+                else if(len==size){
+                    if(ans=="" || temp < ans) ans=temp;
+                }
 
                 if(s[start]=='1') count--;
                 temp.erase(0,1);
@@ -19,8 +26,8 @@ public:
             }
             end++;
         }
-        if(ans.size()==0) return "";
-        sort(ans.begin(),ans.end());
-        return ans[0].second;
+        
+        
+        return ans;
     }
 };
