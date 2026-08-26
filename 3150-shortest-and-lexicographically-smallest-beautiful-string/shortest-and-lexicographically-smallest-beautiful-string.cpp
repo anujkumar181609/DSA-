@@ -21,7 +21,6 @@ public:
                 }
 
                 if(s[start]=='1') count--;
-                temp.erase(0,1);
                 start++;
             }
             end++;
