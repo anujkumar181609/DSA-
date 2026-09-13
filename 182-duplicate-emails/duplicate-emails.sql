@@ -1,4 +1,4 @@
 # Write your MySQL query statement below
 SELECT email AS Email FROM Person
 GROUP BY email
-HAVING MIN(id) AND COUNT(*) >1;
+HAVING COUNT(*) >1;
